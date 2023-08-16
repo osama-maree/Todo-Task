@@ -21,7 +21,7 @@
 }
 .custom-button {
   background: var(--red-color);
-  padding: 5px 10px;
+  padding: 7px 10px;
   outline: unset !important;
   border: unset !important;
   border-radius: 5px;
