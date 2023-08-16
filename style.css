@@ -1,0 +1,68 @@
+:root {
+  --red-color: #f44336;
+}
+.app-container {
+  text-align: center;
+}
+.container {
+  border: 1px solid gainsboro;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 0.6rem 1rem;
+  width: auto;
+  margin-top: 1.2rem;
+  border-radius: 2px;
+}
+.container h3 {
+  font-size: 30px;
+}
+.custom-button {
+  background: var(--red-color);
+  padding: 5px 10px;
+  outline: unset !important;
+  border: unset !important;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+input {
+  outline: unset;
+  border: 1px solid gray;
+  padding: 4px;
+  border-radius: 3px;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+table {
+  border-collapse: collapse;
+  margin-bottom: 0px;
+}
+th,
+td {
+  padding: 8px 2.5rem;
+  text-align: center;
+}
+.search-input {
+  width: 40%;
+}
+.search-input input {
+  padding: 0.5rem;
+}
+p {
+  margin-top: 0px;
+}
+@media screen and (max-width: 830px) {
+  td,
+  th {
+    padding: 0.5rem;
+  }
+  .mb {
+    margin-bottom: 2px;
+  }
+}
