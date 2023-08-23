@@ -38,7 +38,7 @@ function ShowTodo() {
     rows += "</tr>";
   });
   Attributes[0].innerHTML = rows;
-  count[0].textContent = `Total tasks: ${Todos?.length}`;
+  count[0].textContent = `Total tasks: ${Todos ? Todos.length : 0}`;
 }
 function DeleteTodo(id) {
   if (confirm("Are you sure?")) {
