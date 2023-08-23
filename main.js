@@ -15,7 +15,7 @@ function fetchData() {
 fetchData();
 function ShowTodo() {
   rows = "";
-  Todos.forEach((element) => {
+  Todos?.forEach((element) => {
     rows += "<tr>";
     rows += `<td>${element.id}</td>`;
     rows += `<td style='${
