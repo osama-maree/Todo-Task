@@ -4,8 +4,7 @@ let Attributes = document.getElementsByTagName("tbody"),
   addBtn = document.getElementById("addBtn"),
   Search = document.getElementById("search"),
   Todos,
-  Temp = [],
-  Done = document.getElementById("done");
+  Temp = [];
 
 function fetchData() {
   Todos = JSON.parse(localStorage.getItem("todos"));
