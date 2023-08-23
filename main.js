@@ -3,12 +3,13 @@ let Attributes = document.getElementsByTagName("tbody"),
   input = document.getElementById("input"),
   addBtn = document.getElementById("addBtn"),
   Search = document.getElementById("search"),
-  Todos=[],
+  Todos = [],
   Temp = [];
- 
 
 function fetchData() {
-  Todos = JSON.parse(localStorage.getItem("todos"));
+  Todos = JSON.parse(localStorage.getItem("todos"))
+    ? JSON.parse(localStorage.getItem("todos"))
+    : [];
   Temp = Todos;
   ShowTodo();
 }
