@@ -32,7 +32,7 @@ function ShowTodo() {
       element.edit && !element.completed ? "Save" : "Edit"
     }</td>`;
     rows += `<td>${element.userId}</td>`;
-    rows += `<td>${element.completed}</td>`;
+    rows += `<td>${element.completed ? "Completed" : "Pending"}</td>`;
     rows += `<td>  <button class="custom-button mb" onclick="DeleteTodo(${element.id})">Delete</button>
                    <button class="custom-button" style="background-color: #4CAF50;"onclick="DoneTodo(${element.id})">Done</button>
                </td>`;
