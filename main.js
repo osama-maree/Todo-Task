@@ -3,9 +3,9 @@ let Attributes = document.getElementsByTagName("tbody"),
   input = document.getElementById("input"),
   addBtn = document.getElementById("addBtn"),
   Search = document.getElementById("search"),
-  Todos,
-  Temp = [],
-  inpEdit = "";
+  Todos=[],
+  Temp = [];
+ 
 
 function fetchData() {
   Todos = JSON.parse(localStorage.getItem("todos"));
