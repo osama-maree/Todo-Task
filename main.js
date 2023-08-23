@@ -79,7 +79,7 @@ function getValue(id) {
     }
   }
 }
-addBtn.onclick= function (e) {
+addBtn.onclick = function (e) {
   e.preventDefault();
   if (!input.value) {
     return alert("Please fill input");
@@ -94,7 +94,7 @@ addBtn.onclick= function (e) {
   Todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(Todos));
   fetchData();
-}
+};
 Search.onkeyup = function () {
   Todos = Temp;
   Todos = Todos.filter((todo) =>
