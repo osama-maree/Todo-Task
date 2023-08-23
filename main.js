@@ -85,7 +85,7 @@ addBtn.onclick= function (e) {
     return alert("Please fill input");
   }
   const todo = {
-    id: Todos.length > 0 ? Todos[Todos.length - 1].id + 1 : 0,
+    id: Todos?.length > 0 ? Todos[Todos.length - 1].id + 1 : 0,
     userId: parseInt(Math.random() * (1000 - 1) + 1),
     edit: false,
     completed: false,
