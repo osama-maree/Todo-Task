@@ -4,7 +4,8 @@ let Attributes = document.getElementsByTagName("tbody"),
   addBtn = document.getElementById("addBtn"),
   Search = document.getElementById("search"),
   Todos,
-  Temp = [];
+  Temp = [],
+  inpEdit = "";
 
 function fetchData() {
   Todos = JSON.parse(localStorage.getItem("todos"));
@@ -19,7 +20,16 @@ function ShowTodo() {
     rows += `<td>${element.id}</td>`;
     rows += `<td style='${
       element.completed ? "text-decoration: line-through;" : ""
-    }'>${element.todo}</td>`;
+    }'>${
+      element.edit
+        ? `<input type="text" onkeyup="SaveChange(
+            this.value,${element.id}
+          )" value="${getValue(element.id)}" />`
+        : element.todo
+    }</td>`;
+    rows += `<td style="cursor:pointer" onclick="ToggleEdit(${element.id})">${
+      element.edit && !element.completed ? "Save" : "Edit"
+    }</td>`;
     rows += `<td>${element.userId}</td>`;
     rows += `<td>${element.completed}</td>`;
     rows += `<td>  <button class="custom-button mb" onclick="DeleteTodo(${element.id})">Delete</button>
@@ -44,6 +54,29 @@ function DoneTodo(id) {
   localStorage.setItem("todos", JSON.stringify(Todos));
   fetchData();
 }
+function ToggleEdit(id) {
+  Todos.forEach((todo) => {
+    if (todo.id === id && !todo.completed) {
+      todo.edit = !todo.edit;
+    }
+  });
+  localStorage.setItem("todos", JSON.stringify(Todos));
+  fetchData();
+}
+function SaveChange(val, id) {
+  Todos.forEach((todo) => {
+    if (todo.id === id && !todo.completed) {
+      todo.todo = val;
+    }
+  });
+}
+function getValue(id) {
+  for (let i = 0; i < Todos.length; i++) {
+    if (Todos[i].id === id && !Todos[i].completed) {
+      return Todos[i].todo;
+    }
+  }
+}
 addBtn.addEventListener("click", function (e) {
   e.preventDefault();
   if (!input.value) {
@@ -52,6 +85,7 @@ addBtn.addEventListener("click", function (e) {
   const todo = {
     id: Todos.length > 0 ? Todos[Todos.length - 1].id + 1 : 0,
     userId: parseInt(Math.random() * (1000 - 1) + 1),
+    edit: false,
     completed: false,
     todo: input.value,
   };
@@ -60,11 +94,7 @@ addBtn.addEventListener("click", function (e) {
   fetchData();
 });
 Search.onkeyup = function () {
-  if (!Search.value) {
-    Todos = Temp;
-    ShowTodo();
-    return;
-  }
+  Todos = Temp;
   Todos = Todos.filter((todo) =>
     todo.todo.toUpperCase().startsWith(Search.value.toUpperCase())
   );
