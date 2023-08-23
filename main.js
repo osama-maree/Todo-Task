@@ -2,58 +2,63 @@ let Attributes = document.getElementsByTagName("tbody"),
   count = document.getElementsByTagName("p"),
   input = document.getElementById("input"),
   addBtn = document.getElementById("addBtn"),
-  Search = document.getElementById("search");
-let Todos,
-  Temp = [];
-async function fetchData(url) {
-  return await fetch(url);
+  Search = document.getElementById("search"),
+  Todos,
+  Temp = [],
+  Done = document.getElementById("done");
+
+function fetchData() {
+  Todos = JSON.parse(localStorage.getItem("todos"));
+  Temp = Todos;
+  ShowTodo();
 }
-fetchData("https://dummyjson.com/todos")
-  .then((res) => res.json())
-  .then((data) => {
-    Todos = data?.todos;
-    Temp = data.todos;
-    ShowTodo();
-  });
-// for adding new task
+fetchData();
 function ShowTodo() {
   rows = "";
   Todos.forEach((element) => {
     rows += "<tr>";
     rows += `<td>${element.id}</td>`;
-    rows += `<td>${element.todo}</td>`;
+    rows += `<td style='${
+      element.completed ? "text-decoration: line-through;" : ""
+    }'>${element.todo}</td>`;
     rows += `<td>${element.userId}</td>`;
     rows += `<td>${element.completed}</td>`;
-    rows += `<td>  <button class="custom-button mb">Delete</button>
-                     <button class="custom-button" style="background-color: #4CAF50;">Done</button>
+    rows += `<td>  <button class="custom-button mb" onclick="DeleteTodo(${element.id})">Delete</button>
+                   <button class="custom-button" style="background-color: #4CAF50;"onclick="DoneTodo(${element.id})">Done</button>
                </td>`;
     rows += "</tr>";
   });
   Attributes[0].innerHTML = rows;
   count[0].textContent = `Total tasks: ${Todos.length}`;
 }
-async function PostTodo(url) {
-  const data = { id: 10000, userId: 4, completed: false, todo: input.value };
-  await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json", // Set the appropriate content type
-    },
-    body: JSON.stringify(data),
+function DeleteTodo(id) {
+  Todos = Todos.filter((todo) => todo.id != id);
+  localStorage.setItem("todos", JSON.stringify(Todos));
+  fetchData();
+}
+function DoneTodo(id) {
+  Todos.forEach((todo) => {
+    if (todo.id === id) {
+      todo.completed = !todo.completed;
+    }
   });
+  localStorage.setItem("todos", JSON.stringify(Todos));
+  fetchData();
 }
 addBtn.addEventListener("click", function (e) {
   e.preventDefault();
-  console.log("dd");
-  PostTodo("https://dummyjson.com/todos/add")
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      console.log("Response data:", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  if (!input.value) {
+    return alert("Please fill input");
+  }
+  const todo = {
+    id: Todos.length > 0 ? Todos[Todos.length - 1].id + 1 : 0,
+    userId: parseInt(Math.random() * (1000 - 1) + 1),
+    completed: false,
+    todo: input.value,
+  };
+  Todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(Todos));
+  fetchData();
 });
 Search.onkeyup = function () {
   if (!Search.value) {
