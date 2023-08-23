@@ -92,6 +92,7 @@ addBtn.onclick = function (e) {
     completed: false,
     todo: input.value,
   };
+  input.value = "";
   Todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(Todos));
   fetchData();
