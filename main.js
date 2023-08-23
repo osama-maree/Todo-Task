@@ -41,9 +41,11 @@ function ShowTodo() {
   count[0].textContent = `Total tasks: ${Todos.length}`;
 }
 function DeleteTodo(id) {
-  Todos = Todos.filter((todo) => todo.id != id);
-  localStorage.setItem("todos", JSON.stringify(Todos));
-  fetchData();
+  if (confirm("Are you sure?")) {
+    Todos = Todos.filter((todo) => todo.id != id);
+    localStorage.setItem("todos", JSON.stringify(Todos));
+    fetchData();
+  }
 }
 function DoneTodo(id) {
   Todos.forEach((todo) => {
